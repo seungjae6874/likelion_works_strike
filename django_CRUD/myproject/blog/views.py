@@ -4,7 +4,10 @@ from django.utils import timezone
 from .forms import BlogUpdate
 from django.core.paginator import Paginator
 from faker import Faker
+from django.contrib import messages
 # Create your views here.
+
+
 def hello(request):
     return render(request,'hello.html')
 
@@ -63,6 +66,8 @@ def create(request):
     blog.pub_date = timezone.datetime.now()
    
     blog.save()
+    #알림메세지 추가
+    messages.success(request, 'Success to Upload')
     return redirect('/blog/'+str(blog.id))
 
 '''
