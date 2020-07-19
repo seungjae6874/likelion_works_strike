@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% for intros in intro.all %}
+
+    <div class="card" style="width: 30rem;">
+      {% if intros.image %}
+      <img src="{{ intros.image.url }}" width ="400" height = "400" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">스트라이크</h5>
+        <p class="card-text">
+          <br>
+          <h1>닉네임 : {{intros.nick}}</h1>
+          <h1>학년 : {{intros.grade}}</h1>
+          <h1>이름 : {{intros.name}}</h1>
+          {% endif %}
+          <br>
+          
+        </p>
+          <br>
+          <a href="{% url 'blogs' %}">돌아가기</a>
+          <br>
+      </div>
+    </div>
+
+    
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,62 @@
+CRUD
+1. 템플릿 상속, url 관리
+-> 내 프로젝트에 templates 폴더 만들고
+틀이 될 html을 하나 만들어서
+모든 페이지의 틀이 될 코드를 복사 붙이기
+
+그리고 {% block content %} {% endblock%}을 통해
+나중에 각각의 html을 이 안에 넣어주는 코드로
+바꿔준다.
+
+그리고 나서 실행하면 오류남
+why?
+
+settings.py 에서 DIR에 틀이 되는
+base.html이 어디있는지를 알려주어야함.
+'myproject/templates'라는 경로를 []안에 추가
+
+
+1.2 url 관리하기
+
+기존에는 실전개발사이클 의존
+t - > u -> v 에서
+url이 myproject내에 존재했기에
+url이 app의 blog.views에서 blog/로써
+include를 통해 불러와야 했다.
+이를 편리하게 관리하고
+좀 더 다이렉트하게 연결시켜주기위해
+내 app에 즉 blog라는 app에 urls.py를
+하나 만들어주고
+이 blog.urls에서 blog앱 안에있는 html들을
+바로 path로써 연결해주도록 하는
+app 단의 url 관리를 사용하면 좀 더 편리하고
+간결한 구조를 이룰 수 있다.
+
+@@@@@@@@@@@@@@@@@@
+2. pagination
+//페이지 번호 매기기
+numbering 해주는 작업
+
+span이란?
+한 줄 (원하는 한 줄) div 보다는 작은 규모
+내가 사용한 공간 만큼만
+
+div는 크기가 먼저 정해지고 내가 텍스트를
+안에 채우더라도 크기는 div 사각형 크기이다.
+
+
+CRUD를 이용, 실전개발 사이클을 이용하면
+T -> U -> V로 나는 외움
+웹페이지를 만들 수 있다.
+Faker를 이용해서 가짜 게시글을 만들어 낼 수 있고,
+
+페이지네이션을 통해 한 화면당 몇개의 게시글을 
+보여줄 것인지를 나눌 수 있다.
+paginator를 이용
+
+url을 app단에도 만들어주어서 direct로 관리
+template의 예를들면 blog.html에 대해
+상속의 개념으로 하나를 바꾸면 전체가 편리하게
+바뀌도록 내 프로젝트단 ( app 단이 아니라)
+에다가 template 폴더를 만들고 base 즉
+frame이 되는 html을 만들어 내면 편리

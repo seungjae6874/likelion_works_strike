@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+        <img src="#" class="rounded mr-2" alt="#">
+        <strong class="mr-auto">Strike's Page!</strong>
+        <small>10 mins ago</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="toast-body">
+        안녕하세요, 여기는 스트라이크가 만든 페이지에오.
+        </div>
+    </div>
+
+
+    {% for blog in articles %}
+        <div>
+            <h1>{{blog.title}}</h1>
+            <p>{{blog.pub_date}}</p>
+            <p>{{blog.profile_img}}</p>
+            <p>{{blog.summary}}<a href ="{% url 'detail' blog.id %}">...more</a></p>
+            <br>
+        </div>
+    {% endfor %}
+
+    {% if articles.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{ articles.previous_page_number }}">Previous</a>
+
+    {% endif %}
+    <span>{{ articles.number }}</span>
+    <span>of</span>
+    <span>{{articles.paginator.num_pages}}</span>
+    
+    {% if articles.has_next %}
+        <a href="?page={{ articles.next_page_number }}">Next</a>
+        <a href="?page={{ articles.paginator.num_pages }}">Last</a>
+
+    {% endif %}
+{% endblock %}
