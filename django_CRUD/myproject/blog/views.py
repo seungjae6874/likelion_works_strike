@@ -5,6 +5,9 @@ from .forms import BlogUpdate
 from django.core.paginator import Paginator
 from faker import Faker
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib import auth
+import accounts.views
 # Create your views here.
 
 
@@ -37,7 +40,8 @@ def blog(request):
 
     return render(request,'blog.html',{'blogs':blogs, 'articles':articles})
 
-def new(request):     
+def new(request):
+    
     return render(request,'new.html')
 
 
@@ -62,24 +66,20 @@ def create(request):
     blog.title = request.POST['title']
     blog.body = request.POST['body']
     #image
-    blog.images  = request.FILES['images']
-    blog.pub_date = timezone.datetime.now()
-   
-    blog.save()
-    #알림메세지 추가
-    messages.success(request, 'Success to Upload')
-    return redirect('/blog/'+str(blog.id))
+    blog.images  = request.FILES.get('images',None)
+    blog.writer = request.POST['writer']
+    if blog.images is None:
+        return render(request, 'new.html',{'error': 'please input images'})
+    else:
 
-'''
-def create(request):
-    blog = Blog()#Blog의 객체를 하나 생성
-    blog.title = request.GET['title']
-    blog.body = request.GET['body']
-    blog.pub_date = timezone.datetime.now()
-   
-    blog.save()
-    return redirect('/blog/'+str(blog.id))
-'''
+        blog.pub_date = timezone.datetime.now()
+    
+        blog.save()
+        #알림메세지 추가
+        messages.success(request, 'Success to Upload')
+        return redirect('/blog/'+str(blog.id))
+
+
 def delete(request,blog_id):
     Blog.objects.get(id=blog_id).delete()
     return redirect('/')

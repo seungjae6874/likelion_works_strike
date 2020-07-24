@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <h1>Login</h1>
+    {% if error %}
+    <h3>{{error}}</h3>
+    <br>
+    <br>
+    {% endif %}
+
+    <form method = "POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <br>
+        <br>
+        <h3>User name</h3>
+        <br>
+        <input name = "username" type="text" value = "">
+        <br>
+        <h3>Password</h3>
+        <br>
+        <input name = "password" type="password" value = "">
+        <br>
+        <br>
+        <input type="submit" class="button" value = "Login">
+    </form>
+
+    <a href="{% url 'sociallogin'}">구글 로그인</a>
+</div>
+{% endblock %}

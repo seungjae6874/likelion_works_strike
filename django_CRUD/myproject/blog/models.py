@@ -3,6 +3,7 @@ from django.db import models
 #붕어빵 틀이 될 곳
 class Blog(models.Model):
 
+    writer = models.CharField(max_length = 200, default='')
     title = models.CharField(max_length = 200)
     pub_date = models.DateTimeField('date published')
     body = models.TextField()
