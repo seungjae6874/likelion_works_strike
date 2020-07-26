@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'blog.apps.BlogConfig',
     'accounts.apps.AccountsConfig',
-
+    'imagekit',
+    
     #allauth
     'allauth',
     'allauth.account',

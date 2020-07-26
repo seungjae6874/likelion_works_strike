@@ -12,7 +12,9 @@
                 <h6>글쓴이: {{blog.writer}}</h6>
                 <h1>{{blog.title}}</h1>
                 <p>{{blog.pub_date}}</p>
-                <p>{{blog.profile_img}}</p>
+                {% if blog.images %}
+                    <img src = "{{ blog.image_thumbnail.url }}" >
+                {% endif %}
                 <p>{{blog.summary}}
                 <a href ="{% url 'detail' blog.id %}" class = "card-link">...more</a>
                 </p>
