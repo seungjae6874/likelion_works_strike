@@ -3,40 +3,88 @@
 {% block content %}
 
   
-<div class = "container">
-    {% for blog in articles %}
-    
-        <div class = "card">
-            <div class = "card-body">
-                <br>
-                <h6>글쓴이: {{blog.writer}}</h6>
-                <h1>{{blog.title}}</h1>
-                <p>{{blog.pub_date}}</p>
-                {% if blog.images %}
-                    <img src = "{{ blog.image_thumbnail.url }}" >
-                {% endif %}
-                <p>{{blog.summary}}
-                <a href ="{% url 'detail' blog.id %}" class = "card-link">...more</a>
-                </p>
-            </div>
-            
-        </div>
-        <br>
-        {% endfor %}
-
-        {% if articles.has_previous %}
-        <a href="?page=1">First</a>
-        <a href="?page={{ articles.previous_page_number }}">Previous</a>
-
-        {% endif %}
-        <span>{{ articles.number }}</span>
-        <span>of</span>
-        <span>{{articles.paginator.num_pages}}</span>
+    <div class = "container">
+        {% for blog in articles %}
         
-        {% if articles.has_next %}
-        <a href="?page={{ articles.next_page_number }}">Next</a>
-        <a href="?page={{ articles.paginator.num_pages }}">Last</a>
+            <div class = "card">
+                <div class = "card-body">
+                    <br>
+                    <h6>글쓴이: {{blog.writer}}</h6>
+                    <h1>{{blog.title}}</h1>
+                    <p>{{blog.pub_date}}</p>
+                    {% if blog.images %}
+                        <img src = "{{ blog.image_thumbnail.url }}" >
+                    {% endif %}
+                    <p>{{blog.summary}}
+                    <a href ="{% url 'detail' blog.id %}" class = "card-link">...more</a>
+                    </p>
+                </div>
+                
+            </div>
+            <br>
+            {% endfor %}
 
-        {% endif %}
-</div>
+            {% if articles.has_previous %}
+            <a href="?page=1">First</a>
+            <a href="?page={{ articles.previous_page_number }}">Previous</a>
+
+            {% endif %}
+            <span>{{ articles.number }}</span>
+            <span>of</span>
+            <span>{{articles.paginator.num_pages}}</span>
+            
+            {% if articles.has_next %}
+            <a href="?page={{ articles.next_page_number }}">Next</a>
+            <a href="?page={{ articles.paginator.num_pages }}">Last</a>
+
+            {% endif %}
+    </div>
+
+    <br>
+    <meta charset="utf-8">
+    <title>Strike의 첫 웹!</title>
+
+    <br>
+    <div id="map" style="width:auto;height:400px;"></div>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b0c3442bc65f5c2b8f6d8af7094aeace"></script>
+    <script>
+
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        mapOption = { 
+            center: new kakao.maps.LatLng(37.525376, 126.865317), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
+
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+    var markerPosition = new kakao.maps.LatLng(37.525376, 126.865317);
+    //지도 타입 전환
+    var mapTypeControl = new kakao.maps.MapTypeControl();
+    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+    var zoomControl = new kakao.maps.ZoomControl();
+    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+    //마커 생성
+    var marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+
+    marker.setMap(map);
+    var iwContent = '<div style="padding:5px;">스트라이크의 집!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        iwPosition = new kakao.maps.LatLng(37.525376, 126.865317), //인포윈도우 표시 위치입니다
+        iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+    // 인포윈도우를 생성하고 지도에 표시합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        map: map, // 인포윈도우가 표시될 지도
+        position : iwPosition, 
+        content : iwContent,
+        removable : iwRemoveable
+    });
+        
+
+    </script>
+    
+<br>
+<br>
 {% endblock %}
