@@ -1,5 +1,4 @@
-b0c3442bc65f5c2b8f6d8af7094aeace
-37.525376, 126.865317
+
 1. 작성자 추가
 -> 모델에 writer 속성 추가 후 migrate
 -> blog.html에 writer을 띄우도록 선언 후 
